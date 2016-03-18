@@ -1,4 +1,11 @@
-<?php 
+<?php
+/**
+ * This is the most generic template file in a WordPress theme
+ * It is used to display a page when nothing more specific matches a query.
+ * For example, it puts together the blog posts index page when no home.php file exists.
+ * Learn more: http://codex.wordpress.org/Template_Hierarchy
+ */
+
 // Loads the header.php template.
 get_header();
 ?>
@@ -8,21 +15,21 @@ get_header();
 get_template_part( 'template-parts/loop-meta' ); // Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop)
 
 // Template modification Hook
-do_action( 'hoot_template_before_content_grid', 'single.php' );
+do_action( 'hoot_template_before_content_grid', 'index.php' );
 ?>
 
 <div class="grid">
 
 	<?php
 	// Template modification Hook
-	do_action( 'hoot_template_before_main', 'single.php' );
+	do_action( 'hoot_template_before_main', 'index.php' );
 	?>
 
 	<main <?php hoot_attr( 'content' ); ?>>
 
 		<?php
 		// Template modification Hook
-		do_action( 'hoot_template_main_start', 'single.php' );
+		do_action( 'hoot_template_main_start', 'index.php' );
 
 		// Checks if any posts were found.
 		if ( have_posts() ) :
@@ -44,17 +51,11 @@ do_action( 'hoot_template_before_content_grid', 'single.php' );
 			</div><!-- #content-wrap -->
 
 			<?php
-			// Loads the template-parts/loop-nav.php template.
-			if ( hoot_get_mod( 'post_prev_next_links' ) )
-				get_template_part( 'template-parts/loop-nav' );
-
 			// Template modification Hook
-			do_action( 'hoot_template_after_content_wrap', 'single.php' );
+			do_action( 'hoot_template_before_loop_nav', 'index.php' );
 
-			// Loads the comments.php template
-			if ( !is_attachment() ) {
-				comments_template( '', true );
-			};
+			// Loads the template-parts/loop-nav.php template.
+			get_template_part( 'template-parts/loop-nav' );
 
 		// If no posts were found.
 		else :
@@ -66,14 +67,14 @@ do_action( 'hoot_template_before_content_grid', 'single.php' );
 		endif;
 
 		// Template modification Hook
-		do_action( 'hoot_template_main_end', 'single.php' );
+		do_action( 'hoot_template_main_end', 'index.php' );
 		?>
 
 	</main><!-- #content -->
 
 	<?php
 	// Template modification Hook
-	do_action( 'hoot_template_after_main', 'single.php' );
+	do_action( 'hoot_template_after_main', 'index.php' );
 	?>
 
 	<?php hoot_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>

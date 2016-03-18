@@ -8,21 +8,21 @@ get_header();
 get_template_part( 'template-parts/loop-meta' ); // Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop)
 
 // Template modification Hook
-do_action( 'hoot_template_before_content_grid', 'single.php' );
+do_action( 'hoot_template_before_content_grid', 'page.php' );
 ?>
 
 <div class="grid">
 
 	<?php
 	// Template modification Hook
-	do_action( 'hoot_template_before_main', 'single.php' );
+	do_action( 'hoot_template_before_main', 'page.php' );
 	?>
 
 	<main <?php hoot_attr( 'content' ); ?>>
 
 		<?php
 		// Template modification Hook
-		do_action( 'hoot_template_main_start', 'single.php' );
+		do_action( 'hoot_template_main_start', 'page.php' );
 
 		// Checks if any posts were found.
 		if ( have_posts() ) :
@@ -44,17 +44,16 @@ do_action( 'hoot_template_before_content_grid', 'single.php' );
 			</div><!-- #content-wrap -->
 
 			<?php
-			// Loads the template-parts/loop-nav.php template.
-			if ( hoot_get_mod( 'post_prev_next_links' ) )
-				get_template_part( 'template-parts/loop-nav' );
-
 			// Template modification Hook
-			do_action( 'hoot_template_after_content_wrap', 'single.php' );
+			do_action( 'hoot_template_after_content_wrap', 'page.php' );
 
-			// Loads the comments.php template
-			if ( !is_attachment() ) {
+			// Loads the comments.php template if this page is not being displayed as frontpage or a custom 404 page or if this is attachment page of media attached (uploaded) to a page.
+			if ( !is_front_page() && !hoot_is_404() && !is_attachment() ) :
+
+				// Loads the comments.php template
 				comments_template( '', true );
-			};
+
+			endif;
 
 		// If no posts were found.
 		else :
@@ -66,14 +65,14 @@ do_action( 'hoot_template_before_content_grid', 'single.php' );
 		endif;
 
 		// Template modification Hook
-		do_action( 'hoot_template_main_end', 'single.php' );
+		do_action( 'hoot_template_main_end', 'page.php' );
 		?>
 
 	</main><!-- #content -->
 
 	<?php
 	// Template modification Hook
-	do_action( 'hoot_template_after_main', 'single.php' );
+	do_action( 'hoot_template_after_main', 'page.php' );
 	?>
 
 	<?php hoot_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>

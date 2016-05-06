@@ -3,6 +3,8 @@
 get_header();
 ?>
 
+<div id="main-content" class="main-content" style="background-color:yellow">
+
 <?php
 // Dispay Loop Meta at top
 get_template_part( 'template-parts/loop-meta' ); // Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop)

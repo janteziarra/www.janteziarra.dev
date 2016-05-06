@@ -3,28 +3,29 @@
 get_header();
 ?>
 
-<div id="main-content" class="main-content" style="background-color:pink">
-
 <?php
 // Dispay Loop Meta at top
 get_template_part( 'template-parts/loop-meta' ); // Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop)
 
 // Template modification Hook
-do_action( 'hoot_template_before_content_grid', 'page.php' );
+do_action( 'hoot_template_before_content_grid', 'single.php' );
 ?>
 
 <div class="grid">
 
 	<?php
 	// Template modification Hook
-	do_action( 'hoot_template_before_main', 'page.php' );
+	do_action( 'hoot_template_before_main', 'single.php' );
 	?>
 
 	<main <?php hoot_attr( 'content' ); ?>>
 
 		<?php
 		// Template modification Hook
-		do_action( 'hoot_template_main_start', 'page.php' );
+		do_action( 'hoot_template_main_start', 'single.php' );
+		echo types_render_field("restaurant-name", array());
+		echo types_render_field("restaurant-address", array());
+		echo "Price: ".types_render_field("price", array());
 
 		// Checks if any posts were found.
 		if ( have_posts() ) :
@@ -46,16 +47,17 @@ do_action( 'hoot_template_before_content_grid', 'page.php' );
 			</div><!-- #content-wrap -->
 
 			<?php
+			// Loads the template-parts/loop-nav.php template.
+			if ( hoot_get_mod( 'post_prev_next_links' ) )
+				get_template_part( 'template-parts/loop-nav' );
+
 			// Template modification Hook
-			do_action( 'hoot_template_after_content_wrap', 'page.php' );
+			do_action( 'hoot_template_after_content_wrap', 'single.php' );
 
-			// Loads the comments.php template if this page is not being displayed as frontpage or a custom 404 page or if this is attachment page of media attached (uploaded) to a page.
-			if ( !is_front_page() && !hoot_is_404() && !is_attachment() ) :
-
-				// Loads the comments.php template
+			// Loads the comments.php template
+			if ( !is_attachment() ) {
 				comments_template( '', true );
-
-			endif;
+			};
 
 		// If no posts were found.
 		else :
@@ -67,14 +69,14 @@ do_action( 'hoot_template_before_content_grid', 'page.php' );
 		endif;
 
 		// Template modification Hook
-		do_action( 'hoot_template_main_end', 'page.php' );
+		do_action( 'hoot_template_main_end', 'single.php' );
 		?>
 
 	</main><!-- #content -->
 
 	<?php
 	// Template modification Hook
-	do_action( 'hoot_template_after_main', 'page.php' );
+	do_action( 'hoot_template_after_main', 'single.php' );
 	?>
 
 	<?php hoot_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>
